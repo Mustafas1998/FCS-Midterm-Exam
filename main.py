@@ -25,44 +25,93 @@ def saving_data(directory, data_of_employees):
             file.write(f"{info['employee_ID']}, {info['username']}, {date}, {info['Gender']}, {info['salary']}\n")
 
 
+def Menu_admin():
+    print("\nAdmin Menu:")
+    print("1. Display Stats")
+    print("2. Add Employee")
+    print("3. Display All Employees")
+    print("4. Change an Employee's Salary")
+    print("5. Remove an Employee")
+    print("6. Raise an Employee's Salary")
+    print("7. Exit")
+    
+def Menu_Employee():
+    print("\nEmployee Menu:")
+    print("1. Check Salary")
+    print("2. Exit")
+
 
 def Main_program():
     data_of_employees = transferring_data("employees.txt")
     numb_of_attempts = 0
     numb_of_max_attempts = 5
+
     while numb_of_attempts < numb_of_max_attempts:
         username = input("Enter username: ")
         password = input("Enter password: ")
         if username == 'admin' and password == 'admin123123':
             print("Welcome,Admin!")
             while True:
-                print("\nAdmin Menu:")
-                print("1. Display Stats")
-                print("2. Add Employee")
-                print("3. Display All Employees")
-                print("4. Change an Employee's Salary")
-                print("5. Remove an Employee")
-                print("6. Raise an Employee's Salary")
-                print("7. Exit")
+                Menu_admin()
                 choice = input("Enter choice: ")
                 if choice == '1':
-                    statistics(data_of_employees)
+                    print('1')
                 elif choice == '2':
-                    new_employee(data_of_employees)
+                    print('2')
                 elif choice == '3':
-                    display_employees(data_of_employees)
+                    print('3')
                 elif choice == '4':
-                    changing_salary(data_of_employees)
+                    print('4')
                 elif choice == '5':
-                    removing_employee(data_of_employees)
+                    print('5')
                 elif choice == '6':
-                    raising_salary_by_percentage(data_of_employees)
+                    print('6')
                 elif choice == '7':
                     saving_data("employees.txt",data_of_employees)
-                    print("Saving Data, Bye...")
+                    print("Saving Data, Exiting...")
                     break
                 else:
                     print("Please select a valid option!")
+        elif username != 'admin' or password != 'admin123123':
+            print("Invalid password and/or username")
+
+        is_employee = False
+        for employee in data_of_employees:
+            if employee['username'] == username and password == "":
+                    Sex = employee['Gender']
+                    if Sex == 'male':
+                        notation = 'Mr.'
+                    else:
+                        notation = 'Ms.'
+                    print(f"Hello {notation}{username}!")
+                    while True:
+                        Menu_Employee()
+                        goal = input("Enter goal: ")
+                        if goal == '1':
+                            print(f"Your salary is ${employee['salary']}")
+                        elif goal == '2':
+                            print("Terminating System")
+                            #https://www.geeksforgeeks.org/python-now-function/ use of now() function
+                            #link above in first function for hours,minutes and seconds formatting
+                            Timestamp = datetime.datetime.now()
+                            Timestamp_formatted = Timestamp.strftime("%Y%m%d %H:%M:%S")
+                            with open("login_timestamp.txt", 'a') as file: # using with statement in append mode
+                                file.write(f"{username}, {Timestamp_formatted}\n")
+                            break
+                        else:
+                            print("Please select a valid option!")
+                    break
+        if not is_employee and (username != "admin" or password != 'admin123123'):
+            numb_of_attempts += 1
+            # print("Invalid username and/or password")
+        if numb_of_attempts >= numb_of_max_attempts:
+            print("You have reached maximum number of login attempts. Goodbye.")
+Main_program()
+
+
+
+
+
 
 
 
