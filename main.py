@@ -26,5 +26,51 @@ def saving_data(directory, data_of_employees):
 
 
 
+def Main_program():
+    data_of_employees = transferring_data("employees.txt")
+    numb_of_attempts = 0
+    numb_of_max_attempts = 5
+    while numb_of_attempts < numb_of_max_attempts:
+        username = input("Enter username: ")
+        password = input("Enter password: ")
+        if username == 'admin' and password == 'admin123123':
+            print("Welcome,Admin!")
+            while True:
+                print("\nAdmin Menu:")
+                print("1. Display Stats")
+                print("2. Add Employee")
+                print("3. Display All Employees")
+                print("4. Change an Employee's Salary")
+                print("5. Remove an Employee")
+                print("6. Raise an Employee's Salary")
+                print("7. Exit")
+                choice = input("Enter choice: ")
+                if choice == '1':
+                    statistics(data_of_employees)
+                elif choice == '2':
+                    new_employee(data_of_employees)
+                elif choice == '3':
+                    display_employees(data_of_employees)
+                elif choice == '4':
+                    changing_salary(data_of_employees)
+                elif choice == '5':
+                    removing_employee(data_of_employees)
+                elif choice == '6':
+                    raising_salary_by_percentage(data_of_employees)
+                elif choice == '7':
+                    saving_data("employees.txt",data_of_employees)
+                    print("Saving Data, Bye...")
+                    break
+                else:
+                    print("Please select a valid option!")
+
+
+
+
+
+
+
+
+
 
 
