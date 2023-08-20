@@ -97,11 +97,11 @@ def employee_removal(data_of_employees):
     else:
         print("Employee not found!")
 
-def changing_salary(data_of_employee):
+def changing_salary(data_of_employees):
     """Changes the salary of an employee by asking for its ID"""
     emp_ID = input("Enter the ID of the employee: ")
     #https://stackoverflow.com/questions/4260280/if-else-in-a-list-comprehension used to create True_employee[]
-    True_employee =[employee for employee in data_of_employee if employee['employee_ID'] == emp_ID]
+    True_employee =[employee for employee in data_of_employees if employee['employee_ID'] == emp_ID]
     if True_employee:
         updated_salary = int(input("Enter new salary: "))
         for e in True_employee:
@@ -110,9 +110,19 @@ def changing_salary(data_of_employee):
     else:
         print("No employee found")
 
+def displaying_stats(data_of_employees):
+    """Displays the number of male and female employees separately"""
+    #https://stackoverflow.com/questions/37438550/how-can-i-count-occurrences-of-values-in-a-list-of-dicts
+    # Usage of Counter
+    Gender = Counter()
+    for employee in data_of_employees:
+        Gender[employee['Gender']] += 1
+    print(Gender)
+
 
 def Main_program():
     """Main program where functions are called according to the menu"""
+
     data_of_employees = transferring_data("employees.txt")
     numb_of_attempts = 0
     numb_of_max_attempts = 5
@@ -125,7 +135,7 @@ def Main_program():
                 Menu_admin()
                 choice = input("Enter choice: ")
                 if choice == '1':
-                    print('1')
+                    displaying_stats(data_of_employees)
                 elif choice == '2':
                     adding_new_employee(data_of_employees)
                 elif choice == '3':
@@ -142,7 +152,7 @@ def Main_program():
                     break
                 else:
                     print("Please select a valid option!")
-        elif username == 'admin' and password != 'admin123123':
+        elif (username == 'admin' or password != 'admin123123') or (username != 'admin' or password == "admin123123"):
             print("Invalid password and/or username")
 
         is_employee = False
