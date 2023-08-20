@@ -70,8 +70,18 @@ def adding_new_employee(data_of_employees):
         'salary': salary,
         'Gender': Gender
     })
-    print("New employee was added!")
+    print("New employee was added.")
 
+def employee_removal(data_of_employees):
+    """Removes an employee from the list of employees by asking for the ID"""
+    #list.remove(i)
+    ID = input("Enter the ID of the employee you want to remove: ")
+    for employee in data_of_employees:
+        if employee['employee_ID'] == ID:
+            data_of_employees.remove(employee)
+            print("Employee is removed.")
+        elif employee['employee_ID'] != ID:
+            print("No such employee found!")
 
 
 def Main_program():
@@ -95,7 +105,7 @@ def Main_program():
                 elif choice == '4':
                     print('4')
                 elif choice == '5':
-                    print('5')
+                    employee_removal(data_of_employees)
                 elif choice == '6':
                     print('6')
                 elif choice == '7':
