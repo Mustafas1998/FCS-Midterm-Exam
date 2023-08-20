@@ -1,1 +1,2 @@
-emp002, manuella, 20220803, female, 1200
+emp001, mustafa, 20230820, male, 1200
+emp002, mustafa, 20230820, male, 1200

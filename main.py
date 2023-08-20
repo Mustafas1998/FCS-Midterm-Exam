@@ -48,6 +48,17 @@ def display_employees(data_of_employees):
             f"{info['employee_ID']}, {info['username']}, {date_of_join}, {info['Gender']}, {info['salary']} "
         )
 
+def salary_raise(data_of_employees):
+    """Raises the salary of an employee by percentage"""
+    ID = input("Enter ID of the employee: ")
+    for employee in data_of_employees:
+        if employee['employee_ID'] == ID:
+            percentage_of_raise = float(input("Enter the percentage"))
+            employee['salary'] = int(employee['salary'] + (percentage_of_raise / 100) * employee['salary'])
+            print("Salary raised!")
+        elif employee['employee_ID'] == ID:
+            print("No Employee with such ID")
+
 
 def Menu_Employee():
     """Displays the menu of Employee"""
@@ -84,7 +95,9 @@ def employee_removal(data_of_employees):
             print("No such employee found!")
 
 
+
 def Main_program():
+    """Main program where functions are called according to the menu"""
     data_of_employees = transferring_data("employees.txt")
     numb_of_attempts = 0
     numb_of_max_attempts = 5
@@ -107,7 +120,7 @@ def Main_program():
                 elif choice == '5':
                     employee_removal(data_of_employees)
                 elif choice == '6':
-                    print('6')
+                    salary_raise(data_of_employees)
                 elif choice == '7':
                     saving_data("employees.txt",data_of_employees)
                     print("Saving Data, Exiting...")
