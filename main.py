@@ -50,15 +50,16 @@ def display_employees(data_of_employees):
 
 def salary_raise(data_of_employees):
     """Raises the salary of an employee by percentage"""
-    ID = input("Enter ID of the employee: ")
-    for employee in data_of_employees:
-        if employee['employee_ID'] == ID:
-            percentage_of_raise = float(input("Enter the percentage"))
-            employee['salary'] = int(employee['salary'] + (percentage_of_raise / 100) * employee['salary'])
-            print("Salary raised!")
-        elif employee['employee_ID'] == ID:
-            print("No Employee with such ID")
-
+    ID = input("Enter the ID of the employee: ")
+    # https://stackoverflow.com/questions/4260280/if-else-in-a-list-comprehension used to create True_employee[]
+    True_employee = [employee for employee in data_of_employees if employee['employee_ID'] == ID]
+    if True_employee:
+        for e in True_employee:
+            raise_percentage = float(input('Enter the percentage of the raise: '))
+            e['salary'] = int(e['salary'] + (raise_percentage / 100) * e['salary'])
+            print('Salary have been raised.')
+    else:
+        print("No employee with such ID")
 
 def Menu_Employee():
     """Displays the menu of Employee"""
@@ -75,7 +76,7 @@ def adding_new_employee(data_of_employees):
     salary = int(input("Enter the salary: "))
     Gender = input("Enter gender, (male/female): ")
     data_of_employees.append({
-        'date_joined': datetime.datetime.now(), # now for formatting joining time
+        'date_joined': datetime.datetime.now(), # now() for formatting joining time
         'username': username,
         'employee_ID': new_ID,
         'salary': salary,
@@ -87,13 +88,27 @@ def employee_removal(data_of_employees):
     """Removes an employee from the list of employees by asking for the ID"""
     #list.remove(i)
     ID = input("Enter the ID of the employee you want to remove: ")
-    for employee in data_of_employees:
-        if employee['employee_ID'] == ID:
-            data_of_employees.remove(employee)
-            print("Employee is removed.")
-        elif employee['employee_ID'] != ID:
-            print("No such employee found!")
+    #https://stackoverflow.com/questions/4260280/if-else-in-a-list-comprehension used to create True_employee[]
+    True_employee =[employee for employee in data_of_employees if employee['employee_ID'] == ID]
+    if True_employee:
+        for e in True_employee:
+            data_of_employees.remove(e)
+            print("Employee removed")
+    else:
+        print("Employee not found!")
 
+def changing_salary(data_of_employee):
+    """Changes the salary of an employee by asking for its ID"""
+    emp_ID = input("Enter the ID of the employee: ")
+    #https://stackoverflow.com/questions/4260280/if-else-in-a-list-comprehension used to create True_employee[]
+    True_employee =[employee for employee in data_of_employee if employee['employee_ID'] == emp_ID]
+    if True_employee:
+        updated_salary = int(input("Enter new salary: "))
+        for e in True_employee:
+            e['salary'] = updated_salary
+            print("Salary have been updated.")
+    else:
+        print("No employee found")
 
 
 def Main_program():
@@ -116,7 +131,7 @@ def Main_program():
                 elif choice == '3':
                     display_employees(data_of_employees)
                 elif choice == '4':
-                    print('4')
+                    changing_salary(data_of_employees)
                 elif choice == '5':
                     employee_removal(data_of_employees)
                 elif choice == '6':

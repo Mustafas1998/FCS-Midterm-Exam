@@ -1,2 +1,2 @@
-emp001, mustafa, 20230820, male, 1200
-emp002, mustafa, 20230820, male, 1200
+emp001, mustafa, 20230820, male, 8000
+emp002, ali, 20230820, male, 1300
